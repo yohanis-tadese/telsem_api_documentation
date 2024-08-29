@@ -276,4 +276,4 @@ Replace `:id` with the actual exercise ID.
 
 ---
 
-Feel free to adjust the example data and responses according to your specific needs and the actual implementation of your API.
+
