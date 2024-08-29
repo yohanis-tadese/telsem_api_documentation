@@ -8,249 +8,265 @@ This document provides information about the Exercise API endpoints available in
 http://localhost:9009/api/exercise
 ```
 
-## Endpoints
+#### **1. Create a New Exercise**
 
-### 1. Create a New Exercise
+**Endpoint:** `POST /api/exercises`
 
-- **Endpoint:** `POST /create`
-- **Description:** Creates a new exercise.
+**Description:** Create a new exercise with associated questions and choices.
+
+**Request URL:**
+```
+http://127.0.0.1:9009/api/exercises
+```
 
 **Request Body:**
-
 ```json
 {
-  "title": "string",
-  "description": "string",
-  "unit_id": "integer"
-}
-```
-
-- **title**: The title of the exercise (required).
-- **description**: A detailed description of the exercise (required).
-- **unit_id**: The ID of the unit to which the exercise belongs (required).
-
-**Response:**
-
-- **201 Created**
-
-```json
-{
-  "success": true,
-  "message": "Exercise was created successfully",
-  "data": {
-    "id": "integer",
-    "title": "string",
-    "description": "string",
-    "unit_id": "integer"
-  }
-}
-```
-
-- **400 Bad Request**
-
-```json
-{
-  "success": false,
-  "message": "Error message describing the issue"
-}
-```
-
-### 2. Get All Exercises
-
-- **Endpoint:** `GET /get-all`
-- **Description:** Retrieves all exercises.
-
-**Response:**
-
-- **200 OK**
-
-```json
-{
-  "success": true,
-  "message": "Exercises retrieved successfully",
-  "data": [
+  "title": "Cell Biology Fundamentals",
+  "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
+  "unit_id": 3335438,
+  "questions": [
     {
-      "id": "integer",
-      "title": "string",
-      "description": "string",
-      "unit_id": "integer",
-      "unit": {
-        "id": "integer",
-        "title": "string"
-      }
+      "question": "Which organelle is known as the powerhouse of the cell?",
+      "solution": "Mitochondria",
+      "choices": [
+        { "text": "Nucleus", "is_correct": false },
+        { "text": "Endoplasmic Reticulum", "is_correct": false },
+        { "text": "Mitochondria", "is_correct": true },
+        { "text": "Golgi Apparatus", "is_correct": false }
+      ]
+    },
+    {
+      "question": "What is the primary function of the cell membrane?",
+      "solution": "To regulate what enters and exits the cell.",
+      "choices": [
+        { "text": "To provide structural support to the cell.", "is_correct": false },
+        { "text": "To regulate what enters and exits the cell.", "is_correct": true },
+        { "text": "To store genetic information.", "is_correct": false },
+        { "text": "To synthesize proteins.", "is_correct": false }
+      ]
     }
   ]
 }
 ```
 
-- **404 Not Found**
+**Responses:**
 
-```json
-{
-  "success": false,
-  "message": "No exercises found"
-}
-```
-
-### 3. Get an Exercise by ID
-
-- **Endpoint:** `GET /get/:id`
-- **Description:** Retrieves a specific exercise by its ID.
-
-**URL Parameters:**
-
-- **id**: The ID of the exercise (required).
-
-**Response:**
-
-- **200 OK**
-
-```json
-{
-  "success": true,
-  "message": "Exercise retrieved successfully",
-  "data": {
-    "id": "integer",
-    "title": "string",
-    "description": "string",
-    "unit_id": "integer",
-    "unit": {
-      "id": "integer",
-      "title": "string"
+- **201 Created**
+  ```json
+  {
+    "success": true,
+    "message": "Exercise and associated data created successfully",
+    "data": {
+      "id": 1,
+      "title": "Cell Biology Fundamentals",
+      "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
+      "unit_id": 3335438
     }
   }
-}
+  ```
+
+- **400 Bad Request** (for invalid data)
+  ```json
+  {
+    "success": false,
+    "message": "Validation error message"
+  }
+  ```
+
+#### **2. Get All Exercises**
+
+**Endpoint:** `GET /api/exercises`
+
+**Description:** Retrieve all exercises with their associated questions and choices.
+
+**Request URL:**
+```
+http://127.0.0.1:9009/api/exercises
 ```
 
-- **404 Not Found**
+**Responses:**
 
-```json
-{
-  "success": false,
-  "message": "Exercise not found with id {id}"
-}
+- **200 OK**
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "id": 1,
+        "title": "Cell Biology Fundamentals",
+        "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
+        "unit_id": 3335438,
+        "questions": [
+          {
+            "id": 1,
+            "question": "Which organelle is known as the powerhouse of the cell?",
+            "solution": "Mitochondria",
+            "choices": [
+              { "id": 1, "exercise_choice_text": "Nucleus", "is_correct": false },
+              { "id": 2, "exercise_choice_text": "Endoplasmic Reticulum", "is_correct": false },
+              { "id": 3, "exercise_choice_text": "Mitochondria", "is_correct": true },
+              { "id": 4, "exercise_choice_text": "Golgi Apparatus", "is_correct": false }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
+- **404 Not Found** (if no exercises exist)
+  ```json
+  {
+    "success": false,
+    "message": "No exercises found"
+  }
+  ```
+
+#### **3. Get Exercise by ID**
+
+**Endpoint:** `GET /api/exercises/:id`
+
+**Description:** Retrieve an exercise by ID with its associated questions and choices.
+
+**Request URL:**
+```
+http://127.0.0.1:9009/api/exercises/:id
 ```
 
-### 4. Update an Exercise by ID
+Replace `:id` with the actual exercise ID.
 
-- **Endpoint:** `POST /update/:id`
-- **Description:** Updates an existing exercise by its ID.
+**Responses:**
 
-**URL Parameters:**
+- **200 OK**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "id": 1,
+      "title": "Cell Biology Fundamentals",
+      "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
+      "unit_id": 3335438,
+      "questions": [
+        {
+          "id": 1,
+          "question": "Which organelle is known as the powerhouse of the cell?",
+          "solution": "Mitochondria",
+          "choices": [
+            { "id": 1, "exercise_choice_text": "Nucleus", "is_correct": false },
+            { "id": 2, "exercise_choice_text": "Endoplasmic Reticulum", "is_correct": false },
+            { "id": 3, "exercise_choice_text": "Mitochondria", "is_correct": true },
+            { "id": 4, "exercise_choice_text": "Golgi Apparatus", "is_correct": false }
+          ]
+        }
+      ]
+    }
+  }
+  ```
 
-- **id**: The ID of the exercise (required).
+- **404 Not Found** (if the exercise with the given ID does not exist)
+  ```json
+  {
+    "success": false,
+    "message": "Exercise not found"
+  }
+  ```
+
+#### **4. Update an Existing Exercise**
+
+**Endpoint:** `PUT /api/exercises/:id`
+
+**Description:** Update an existing exercise along with its associated questions and choices.
+
+**Request URL:**
+```
+http://127.0.0.1:9009/api/exercises/:id
+```
+
+Replace `:id` with the actual exercise ID.
 
 **Request Body:**
-
 ```json
 {
-  "title": "string",
-  "description": "string",
-  "unit_id": "integer"
+  "title": "Updated Cell Biology Fundamentals",
+  "description": "Updated description of cell biology exercise.",
+  "unit_id": 3335439,
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the new primary function of the cell membrane?",
+      "solution": "Updated solution",
+      "choices": [
+        { "id": 1, "text": "To provide structural support to the cell.", "is_correct": false },
+        { "id": 2, "text": "To regulate what enters and exits the cell.", "is_correct": true },
+        { "id": 3, "text": "To store genetic information.", "is_correct": false },
+        { "id": 4, "text": "To synthesize proteins.", "is_correct": false }
+      ]
+    }
+  ]
 }
 ```
 
-- **title**: The updated title of the exercise (optional).
-- **description**: The updated description of the exercise (optional).
-- **unit_id**: The updated unit ID associated with the exercise (optional).
-
-**Response:**
+**Responses:**
 
 - **200 OK**
-
-```json
-{
-  "success": true,
-  "message": "Exercise updated successfully",
-  "data": {
-    "id": "integer",
-    "title": "string",
-    "description": "string",
-    "unit_id": "integer"
+  ```json
+  {
+    "success": true,
+    "message": "Exercise and associated data updated successfully",
+    "data": {
+      "id": 1,
+      "title": "Updated Cell Biology Fundamentals",
+      "description": "Updated description of cell biology exercise.",
+      "unit_id": 3335439
+    }
   }
-}
+  ```
+
+- **404 Not Found** (if the exercise with the given ID does not exist)
+  ```json
+  {
+    "success": false,
+    "message": "Exercise not found"
+  }
+  ```
+
+- **400 Bad Request** (for invalid data)
+  ```json
+  {
+    "success": false,
+    "message": "Validation error message"
+  }
+  ```
+
+#### **5. Delete an Exercise**
+
+**Endpoint:** `DELETE /api/exercises/:id`
+
+**Description:** Delete an exercise along with its associated questions and choices.
+
+**Request URL:**
+```
+http://127.0.0.1:9009/api/exercises/:id
 ```
 
-- **404 Not Found**
+Replace `:id` with the actual exercise ID.
 
-```json
-{
-  "success": false,
-  "message": "Exercise not found with id {id}"
-}
-```
-
-### 5. Delete an Exercise by ID
-
-- **Endpoint:** `DELETE /delete/:id`
-- **Description:** Deletes an exercise by its ID.
-
-**URL Parameters:**
-
-- **id**: The ID of the exercise (required).
-
-**Response:**
+**Responses:**
 
 - **200 OK**
+  ```json
+  {
+    "success": true,
+    "message": "Exercise and associated data deleted successfully"
+  }
+  ```
 
-```json
-{
-  "success": true,
-  "message": "Exercise deleted successfully"
-}
-```
+- **404 Not Found** (if the exercise with the given ID does not exist)
+  ```json
+  {
+    "success": false,
+    "message": "Exercise not found"
+  }
+  ```
 
-- **404 Not Found**
-
-```json
-{
-  "success": false,
-  "message": "Exercise not found with id {id}"
-}
-```
-
-## Middleware
-
-### Validation Middleware
-
-- **`validateExercise`**: Middleware to validate the request body for creating or updating an exercise. Ensures that required fields are provided and have valid values.
-
-- **`validateRequest`**: Middleware to handle validation errors and send appropriate responses.
-
-## Example Requests
-
-- **Creating an Exercise**
-
-```bash
-curl -X POST http://localhost:9009/api/exercise/create \
--H "Content-Type: application/json" \
--d '{"title": "New Exercise", "description": "Details about the exercise", "unit_id": 1}'
-```
-
-- **Getting All Exercises**
-
-```bash
-curl -X GET http://localhost:9009/api/exercise/get-all
-```
-
-- **Getting an Exercise by ID**
-
-```bash
-curl -X GET http://localhost:9009/api/exercise/get/1
-```
-
-- **Updating an Exercise**
-
-```bash
-curl -X POST http://localhost:9009/api/exercise/update/1 \
--H "Content-Type: application/json" \
--d '{"title": "Updated Exercise", "description": "Updated details", "unit_id": 2}'
-```
-
-- **Deleting an Exercise**
-
-```bash
-curl -X DELETE http://localhost:9009/api/exercise/delete/1
-```
-
----
