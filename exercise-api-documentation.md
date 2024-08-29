@@ -5,12 +5,12 @@ This document provides information about the Exercise API endpoints available in
 ## Base URL
 
 ```
-http://localhost:9009/api/exercise
+http://localhost:9009/api
 ```
 
 #### **1. Create a New Exercise**
 
-**Endpoint:** `POST /api/exercises`
+**Endpoint:** `POST /exercises`
 
 **Description:** Create a new exercise with associated questions and choices.
 
@@ -76,7 +76,7 @@ http://127.0.0.1:9009/api/exercises
 
 #### **2. Get All Exercises**
 
-**Endpoint:** `GET /api/exercises`
+**Endpoint:** `GET /exercises`
 
 **Description:** Retrieve all exercises with their associated questions and choices.
 
@@ -125,7 +125,7 @@ http://127.0.0.1:9009/api/exercises
 
 #### **3. Get Exercise by ID**
 
-**Endpoint:** `GET /api/exercises/:id`
+**Endpoint:** `GET /exercises/:id`
 
 **Description:** Retrieve an exercise by ID with its associated questions and choices.
 
@@ -174,7 +174,7 @@ Replace `:id` with the actual exercise ID.
 
 #### **4. Update an Existing Exercise**
 
-**Endpoint:** `PUT /api/exercises/:id`
+**Endpoint:** `PUT /exercises/:id`
 
 **Description:** Update an existing exercise along with its associated questions and choices.
 
@@ -241,7 +241,7 @@ Replace `:id` with the actual exercise ID.
 
 #### **5. Delete an Exercise**
 
-**Endpoint:** `DELETE /api/exercises/:id`
+**Endpoint:** `DELETE /exercises/:id`
 
 **Description:** Delete an exercise along with its associated questions and choices.
 
