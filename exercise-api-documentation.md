@@ -1,3 +1,7 @@
+Got it! Here's the revised API documentation tailored for a web development context:
+
+---
+
 # Exercise API Documentation
 
 This document provides information about the Exercise API endpoints available in the application.
@@ -16,34 +20,34 @@ http://localhost:9009/api
 
 **Request URL:**
 ```
-http://127.0.0.1:9009/api/exercises
+http://localhost:9009/api/exercises
 ```
 
 **Request Body:**
 ```json
 {
-  "title": "Cell Biology Fundamentals",
-  "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
-  "unit_id": 3335438,
+  "title": "Understanding Web Development Basics",
+  "description": "This exercise covers fundamental concepts in web development, including HTML, CSS, and JavaScript.",
+  "unit_id": 12345,
   "questions": [
     {
-      "question": "Which organelle is known as the powerhouse of the cell?",
-      "solution": "Mitochondria",
+      "question": "What does HTML stand for?",
+      "solution": "HyperText Markup Language",
       "choices": [
-        { "text": "Nucleus", "is_correct": false },
-        { "text": "Endoplasmic Reticulum", "is_correct": false },
-        { "text": "Mitochondria", "is_correct": true },
-        { "text": "Golgi Apparatus", "is_correct": false }
+        { "text": "HyperText Markup Language", "is_correct": true },
+        { "text": "HyperText Management Language", "is_correct": false },
+        { "text": "HyperText Markdown Language", "is_correct": false },
+        { "text": "HyperText Multi Language", "is_correct": false }
       ]
     },
     {
-      "question": "What is the primary function of the cell membrane?",
-      "solution": "To regulate what enters and exits the cell.",
+      "question": "Which property is used to change the background color in CSS?",
+      "solution": "background-color",
       "choices": [
-        { "text": "To provide structural support to the cell.", "is_correct": false },
-        { "text": "To regulate what enters and exits the cell.", "is_correct": true },
-        { "text": "To store genetic information.", "is_correct": false },
-        { "text": "To synthesize proteins.", "is_correct": false }
+        { "text": "color", "is_correct": false },
+        { "text": "background-color", "is_correct": true },
+        { "text": "bgcolor", "is_correct": false },
+        { "text": "background", "is_correct": false }
       ]
     }
   ]
@@ -59,9 +63,9 @@ http://127.0.0.1:9009/api/exercises
     "message": "Exercise and associated data created successfully",
     "data": {
       "id": 1,
-      "title": "Cell Biology Fundamentals",
-      "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
-      "unit_id": 3335438
+      "title": "Understanding Web Development Basics",
+      "description": "This exercise covers fundamental concepts in web development, including HTML, CSS, and JavaScript.",
+      "unit_id": 12345
     }
   }
   ```
@@ -82,7 +86,7 @@ http://127.0.0.1:9009/api/exercises
 
 **Request URL:**
 ```
-http://127.0.0.1:9009/api/exercises
+http://localhost:9009/api/exercises
 ```
 
 **Responses:**
@@ -94,19 +98,19 @@ http://127.0.0.1:9009/api/exercises
     "data": [
       {
         "id": 1,
-        "title": "Cell Biology Fundamentals",
-        "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
-        "unit_id": 3335438,
+        "title": "Understanding Web Development Basics",
+        "description": "This exercise covers fundamental concepts in web development, including HTML, CSS, and JavaScript.",
+        "unit_id": 12345,
         "questions": [
           {
             "id": 1,
-            "question": "Which organelle is known as the powerhouse of the cell?",
-            "solution": "Mitochondria",
+            "question": "What does HTML stand for?",
+            "solution": "HyperText Markup Language",
             "choices": [
-              { "id": 1, "exercise_choice_text": "Nucleus", "is_correct": false },
-              { "id": 2, "exercise_choice_text": "Endoplasmic Reticulum", "is_correct": false },
-              { "id": 3, "exercise_choice_text": "Mitochondria", "is_correct": true },
-              { "id": 4, "exercise_choice_text": "Golgi Apparatus", "is_correct": false }
+              { "id": 1, "exercise_choice_text": "HyperText Markup Language", "is_correct": true },
+              { "id": 2, "exercise_choice_text": "HyperText Management Language", "is_correct": false },
+              { "id": 3, "exercise_choice_text": "HyperText Markdown Language", "is_correct": false },
+              { "id": 4, "exercise_choice_text": "HyperText Multi Language", "is_correct": false }
             ]
           }
         ]
@@ -131,7 +135,7 @@ http://127.0.0.1:9009/api/exercises
 
 **Request URL:**
 ```
-http://127.0.0.1:9009/api/exercises/:id
+http://localhost:9009/api/exercises/:id
 ```
 
 Replace `:id` with the actual exercise ID.
@@ -144,19 +148,19 @@ Replace `:id` with the actual exercise ID.
     "success": true,
     "data": {
       "id": 1,
-      "title": "Cell Biology Fundamentals",
-      "description": "This exercise covers key concepts in cell biology, including cell structure and function.",
-      "unit_id": 3335438,
+      "title": "Understanding Web Development Basics",
+      "description": "This exercise covers fundamental concepts in web development, including HTML, CSS, and JavaScript.",
+      "unit_id": 12345,
       "questions": [
         {
           "id": 1,
-          "question": "Which organelle is known as the powerhouse of the cell?",
-          "solution": "Mitochondria",
+          "question": "What does HTML stand for?",
+          "solution": "HyperText Markup Language",
           "choices": [
-            { "id": 1, "exercise_choice_text": "Nucleus", "is_correct": false },
-            { "id": 2, "exercise_choice_text": "Endoplasmic Reticulum", "is_correct": false },
-            { "id": 3, "exercise_choice_text": "Mitochondria", "is_correct": true },
-            { "id": 4, "exercise_choice_text": "Golgi Apparatus", "is_correct": false }
+            { "id": 1, "exercise_choice_text": "HyperText Markup Language", "is_correct": true },
+            { "id": 2, "exercise_choice_text": "HyperText Management Language", "is_correct": false },
+            { "id": 3, "exercise_choice_text": "HyperText Markdown Language", "is_correct": false },
+            { "id": 4, "exercise_choice_text": "HyperText Multi Language", "is_correct": false }
           ]
         }
       ]
@@ -180,7 +184,7 @@ Replace `:id` with the actual exercise ID.
 
 **Request URL:**
 ```
-http://127.0.0.1:9009/api/exercises/:id
+http://localhost:9009/api/exercises/:id
 ```
 
 Replace `:id` with the actual exercise ID.
@@ -188,19 +192,19 @@ Replace `:id` with the actual exercise ID.
 **Request Body:**
 ```json
 {
-  "title": "Updated Cell Biology Fundamentals",
-  "description": "Updated description of cell biology exercise.",
-  "unit_id": 3335439,
+  "title": "Advanced Web Development Concepts",
+  "description": "Updated description of web development exercise.",
+  "unit_id": 12346,
   "questions": [
     {
       "id": 1,
-      "question": "What is the new primary function of the cell membrane?",
-      "solution": "Updated solution",
+      "question": "What is the purpose of JavaScript in web development?",
+      "solution": "To add interactivity to web pages.",
       "choices": [
-        { "id": 1, "text": "To provide structural support to the cell.", "is_correct": false },
-        { "id": 2, "text": "To regulate what enters and exits the cell.", "is_correct": true },
-        { "id": 3, "text": "To store genetic information.", "is_correct": false },
-        { "id": 4, "text": "To synthesize proteins.", "is_correct": false }
+        { "id": 1, "text": "To style web pages.", "is_correct": false },
+        { "id": 2, "text": "To structure web pages.", "is_correct": false },
+        { "id": 3, "text": "To add interactivity to web pages.", "is_correct": true },
+        { "id": 4, "text": "To handle server-side logic.", "is_correct": false }
       ]
     }
   ]
@@ -216,9 +220,9 @@ Replace `:id` with the actual exercise ID.
     "message": "Exercise and associated data updated successfully",
     "data": {
       "id": 1,
-      "title": "Updated Cell Biology Fundamentals",
-      "description": "Updated description of cell biology exercise.",
-      "unit_id": 3335439
+      "title": "Advanced Web Development Concepts",
+      "description": "Updated description of web development exercise.",
+      "unit_id": 12346
     }
   }
   ```
@@ -247,7 +251,7 @@ Replace `:id` with the actual exercise ID.
 
 **Request URL:**
 ```
-http://127.0.0.1:9009/api/exercises/:id
+http://localhost:9009/api/exercises/:id
 ```
 
 Replace `:id` with the actual exercise ID.
@@ -270,3 +274,6 @@ Replace `:id` with the actual exercise ID.
   }
   ```
 
+---
+
+Feel free to adjust the example data and responses according to your specific needs and the actual implementation of your API.
