@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Documentation - Account Routes</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        color: #007bff;
+      }
+      h2 {
+        margin-top: 20px;
+        color: #007bff;
+      }
+      pre {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        overflow-x: auto;
+      }
+      .endpoint {
+        background: #e9ecef;
+        border-left: 5px solid #007bff;
+        padding: 10px;
+        margin-top: 10px;
+      }
+      .response {
+        margin-top: 10px;
+      }
+      .success {
+        color: #28a745;
+      }
+      .failure {
+        color: #dc3545;
+      }
+      .back-to-index {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
+        padding: 10px;
+        width: 20%;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-to-index">Back to Home Page</a>
+      <h1>Account API Documentation</h1>
+
+      <p>
+        <strong>Base URL:</strong>
+        <code>http://34.121.64.128:5000/api/account</code>
+      </p>
+
+      <div class="endpoint">
+        <h2>1. Create Account</h2>
+        <p><strong>Endpoint:</strong> /create</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Registers a new user by creating an
+          account.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code>{
+  "phone_number": "string",
+  "email_address": "string",
+  "password": "string",
+  "first_name": "string",
+  "last_name": "string",
+  "gender": "string",
+  "dob": "YYYY-MM-DD"
+}</code></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code>{
+  "status": true,
+  "message": "mail sent"
+}</code></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">201 Conflict</span>
+          </p>
+          <pre><code>{
+  "success": false,
+  "message": "User already exist with similar email/phone number!"
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>2. Verify Account</h2>
+        <p><strong>Endpoint:</strong> /verify</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Verifies the account registration using
+          a PIN sent via email.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code>{
+  "pin": "number"
+}</code></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code>{
+  "status": true,
+  "message": "Registered successfully!"
+}</code></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code>{
+"status": false,
+"message": "invalid pin / expired pin"
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>3. Login</h2>
+        <p><strong>Endpoint:</strong> /login</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Logs in a user and returns a JWT token
+          for authentication.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code>{
+  "phone_number": "string",
+  "email_address": "string",
+  "password": "string"
+}</code></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code>{
+  "success": true,
+  "message": "Login successful",
+  "token": "jwt_token",
+  "data": {
+    "id": "user_id",
+    "email": "user_email"
+  }
+}</code></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">401 Unauthorized</span>
+          </p>
+          <pre><code>{
+  "success": false,
+  "message": "Account not found" 
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>4. Forget Password</h2>
+        <p><strong>Endpoint:</strong> /forget</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Initiates the password reset process by
+          sending a PIN to the user's email.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code>{
+  "email_address": "string"
+}</code></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code>{
+  "status": true,
+  "message": "mail sent"
+}</code></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">401 Unauthorized</span>
+          </p>
+          <pre><code>{
+  "success": false,
+  "message": "Account not found"
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>5. Verify Password Reset</h2>
+        <p><strong>Endpoint:</strong> /verify-forget-password</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Verifies the PIN received for password
+          reset.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code>{
+  "pin": "number"
+}</code></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code>{
+  "status": true,
+  "email_address": "user_email",
+  "message": "Password reset pin verification is successful"
+}</code></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code>{
+  "status": false,
+  "message": "invalid pin / expired pin"
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>6. Reset Password</h2>
+        <p><strong>Endpoint:</strong> /reset-password</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Resets the user's password using a new
+          password.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code>{
+  "email_address": "string",
+  "new_password": "string"
+}</code></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code>{
+  "status": true,
+  "message": "Password reset is successful"
+}</code></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">401 Unauthorized</span>
+          </p>
+          <pre><code>{
+  "success": false,
+  "message": "Account not found"
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>7. Change Password</h2>
+        <p><strong>Endpoint:</strong> /change-password</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Changes the user's current password to a
+          new password.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code>{
+  "id": "user_id",
+  "old_password": "string",
+  "new_password": "string"
+}</code></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code>{
+  "status": true,
+  "message": "Password updated successfully! Please login with your new password"
+}</code></pre>
+          <p><strong>Failure:</strong> <span class="failure">200 OK</span></p>
+          <pre><code>{
+  "status": false,
+  "message": "Wrong old password!" 
+}</code></pre>
+        </div>
+      </div>
+
+      <p>
+        <strong>Note:</strong>Use the provided token for authenticated requests
+        as necessary.
+      </p>
+    </div>
+  </body>
+</html>
