@@ -34,6 +34,26 @@
         border-radius: 5px;
         padding: 10px;
         overflow-x: auto;
+        position: relative;
+      }
+      pre code {
+        display: block;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .copy-button:active {
+        background-color: #fa0e36;
       }
       .endpoint {
         background: #e9ecef;
@@ -83,7 +103,8 @@
           account.
         </p>
         <h3>Request Body:</h3>
-        <pre><code>{
+        <pre><code id="create-account">
+{
   "phone_number": "string",
   "email_address": "string",
   "password": "string",
@@ -91,20 +112,67 @@
   "last_name": "string",
   "gender": "string",
   "dob": "YYYY-MM-DD"
-}</code></pre>
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-account')">Copy</button></pre>
         <div class="response">
           <p><strong>Success:</strong> <span class="success">200 OK</span></p>
-          <pre><code>{
+          <pre><code id="create-account-success">
+{
   "status": true,
-  "message": "mail sent"
-}</code></pre>
+  "message": "Mail sent"
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-account-success')">Copy</button></pre>
           <p>
             <strong>Failure:</strong> <span class="failure">201 Conflict</span>
           </p>
-          <pre><code>{
+          <pre><code id="create-account-failure">
+{
   "success": false,
-  "message": "User already exist with similar email/phone number!"
-}</code></pre>
+  "message": "User already exists with similar email/phone number!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-account-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>
+              The user already has an account with the provided email or phone
+              number.
+            </li>
+            <li>The input data may be incorrect or malformed.</li>
+            <li><strong>Validation & Length:</strong></li>
+            <ul>
+              <li>
+                <code>phone_number</code>: Required, max length 13 characters
+                (STRING(13)).
+              </li>
+              <li>
+                <code>email_address</code>: Required, max length 40 characters
+                (STRING(40)).
+              </li>
+              <li>
+                <code>password</code>: Required, min length 6 characters
+                (STRING(100)).
+              </li>
+              <li>
+                <code>first_name</code>: Max length 20 characters (STRING(20) in
+                Sequelize).
+              </li>
+              <li>
+                <code>last_name</code>: Max length 20 characters (STRING(20) in
+                Sequelize).
+              </li>
+              <li>
+                <code>gender</code>: Allowed values are "M", "F", "O" (STRING(1)
+                ).
+              </li>
+              <li>
+                <code>dob</code>: Required, should be a valid ISO8601 date (DATE
+                ).
+              </li>
+            </ul>
+          </ul>
         </div>
       </div>
 
@@ -117,23 +185,41 @@
           a PIN sent via email.
         </p>
         <h3>Request Body:</h3>
-        <pre><code>{
+        <pre><code id="verify-account">
+{
   "pin": "number"
-}</code></pre>
+}
+</code>
+<button class="copy-button" onclick="copyCode('verify-account')">Copy</button></pre>
         <div class="response">
           <p><strong>Success:</strong> <span class="success">200 OK</span></p>
-          <pre><code>{
+          <pre><code id="verify-account-success">
+{
   "status": true,
   "message": "Registered successfully!"
-}</code></pre>
+}
+</code>
+<button class="copy-button" onclick="copyCode('verify-account-success')">Copy</button></pre>
           <p>
             <strong>Failure:</strong>
             <span class="failure">400 Bad Request</span>
           </p>
-          <pre><code>{
-"status": false,
-"message": "invalid pin / expired pin"
-}</code></pre>
+          <pre><code id="verify-account-failure">
+{
+  "status": false,
+  "message": "Invalid pin or expired pin"
+}
+</code>
+<button class="copy-button" onclick="copyCode('verify-account-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>The PIN provided is incorrect or expired.</li>
+            <li>The user might have used an old or incorrect PIN.</li>
+            <li><strong>Validation:</strong></li>
+            <ul>
+              <li><code>pin</code>: Must be a valid number.</li>
+            </ul>
+          </ul>
         </div>
       </div>
 
@@ -146,13 +232,18 @@
           for authentication.
         </p>
         <h3>Request Body:</h3>
-        <pre><code>{
+        <pre><code id="login">
+{
+  "phone_number": "string",
   "email_address": "string",
   "password": "string"
-}</code></pre>
+}
+</code>
+<button class="copy-button" onclick="copyCode('login')">Copy</button></pre>
         <div class="response">
           <p><strong>Success:</strong> <span class="success">200 OK</span></p>
-          <pre><code>{
+          <pre><code id="login-success">
+{
   "success": true,
   "message": "Login successful",
   "token": "jwt_token",
@@ -160,139 +251,293 @@
     "id": "user_id",
     "email": "user_email"
   }
-}</code></pre>
+}
+</code>
+<button class="copy-button" onclick="copyCode('login-success')">Copy</button></pre>
           <p>
             <strong>Failure:</strong>
             <span class="failure">401 Unauthorized</span>
           </p>
-          <pre><code>{
+          <pre><code id="login-failure">
+{
   "success": false,
-  "message": "Account not found" 
-}</code></pre>
+  "message": "Account not found"
+}
+</code>
+<button class="copy-button" onclick="copyCode('login-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>The email or phone number is not registered.</li>
+            <li>The password provided is incorrect.</li>
+            <li><strong>Validation & Length:</strong></li>
+            <ul>
+              <li>
+                <code>phone_number</code>: Required, max length 13 characters
+                (STRING(13)).
+              </li>
+              <li>
+                <code>email_address</code>: Required, max length 40 characters
+                (STRING(40)).
+              </li>
+              <li>
+                <code>password</code>: Required, min length 6 characters
+                (STRING(100)).
+              </li>
+            </ul>
+          </ul>
         </div>
       </div>
 
       <div class="endpoint">
-        <h2>4. Forget Password</h2>
-        <p><strong>Endpoint:</strong> /forget</p>
+        <h2>4. Forgot Password</h2>
+        <p><strong>Endpoint:</strong> /forgot</p>
         <p><strong>Method:</strong> POST</p>
         <p>
           <strong>Description:</strong> Initiates the password reset process by
           sending a PIN to the user's email.
         </p>
         <h3>Request Body:</h3>
-        <pre><code>{
+        <pre><code id="forgot-password">
+{
   "email_address": "string"
-}</code></pre>
+}
+</code>
+<button class="copy-button" onclick="copyCode('forgot-password')">Copy</button></pre>
         <div class="response">
           <p><strong>Success:</strong> <span class="success">200 OK</span></p>
-          <pre><code>{
+          <pre><code id="forgot-password-success">
+{
   "status": true,
-  "message": "mail sent"
-}</code></pre>
-          <p>
-            <strong>Failure:</strong>
-            <span class="failure">401 Unauthorized</span>
-          </p>
-          <pre><code>{
-  "success": false,
-  "message": "Account not found"
-}</code></pre>
-        </div>
-      </div>
-
-      <div class="endpoint">
-        <h2>5. Verify Password Reset</h2>
-        <p><strong>Endpoint:</strong> /verify-forget-password</p>
-        <p><strong>Method:</strong> POST</p>
-        <p>
-          <strong>Description:</strong> Verifies the PIN received for password
-          reset.
-        </p>
-        <h3>Request Body:</h3>
-        <pre><code>{
-  "pin": "number"
-}</code></pre>
-        <div class="response">
-          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
-          <pre><code>{
-  "status": true,
-  "email_address": "user_email",
-  "message": "Password reset pin verification is successful"
-}</code></pre>
+  "message": "PIN sent to email!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('forgot-password-success')">Copy</button></pre>
           <p>
             <strong>Failure:</strong>
             <span class="failure">400 Bad Request</span>
           </p>
-          <pre><code>{
+          <pre><code id="forgot-password-failure">
+{
   "status": false,
-  "message": "invalid pin / expired pin"
-}</code></pre>
+  "message": "Account not found"
+}
+</code>
+<button class="copy-button" onclick="copyCode('forgot-password-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>The email address is not registered in the system.</li>
+            <li>The request might be malformed or incorrect.</li>
+            <li><strong>Validation & Length:</strong></li>
+            <ul>
+              <li>
+                <code>email_address</code>: Required, max length 40 characters
+                (STRING(40)).
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>5. Verify Forgot Password</h2>
+        <p><strong>Endpoint:</strong> /verify-forget-password</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Verifies the PIN sent via email before
+          allowing the password reset process to proceed.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="verify-forget-password">
+      {
+        "pin": "number"
+      }
+      </code>
+      <button class="copy-button" onclick="copyCode('verify-forget-password')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="verify-forget-password-success">
+      {
+        "status": true,
+        "email_address": "user@example.com",
+        "message": "Password reset PIN verification is successful."
+      }
+      </code>
+      <button class="copy-button" onclick="copyCode('verify-forget-password-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code id="verify-forget-password-failure">
+      {
+        "status": false,
+        "message": "Invalid PIN or expired PIN."
+      }
+      </code>
+      <button class="copy-button" onclick="copyCode('verify-forget-password-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>The PIN provided is incorrect or expired.</li>
+            <li>The user might have used an old or incorrect PIN.</li>
+          </ul>
+          <p><strong>Validation:</strong></p>
+          <ul>
+            <li><code>pin</code>: Must be a valid number.</li>
+          </ul>
         </div>
       </div>
 
       <div class="endpoint">
         <h2>6. Reset Password</h2>
-        <p><strong>Endpoint:</strong> /reset-password</p>
+        <p><strong>Endpoint:</strong> /reset</p>
         <p><strong>Method:</strong> POST</p>
         <p>
-          <strong>Description:</strong> Resets the user's password using a new
-          password.
+          <strong>Description:</strong> Resets the user's password using the PIN
+          received via email.
         </p>
         <h3>Request Body:</h3>
-        <pre><code>{
-  "email_address": "string",
+        <pre><code id="reset-password">
+{
+  "pin": "number",
   "new_password": "string"
-}</code></pre>
+}
+</code>
+<button class="copy-button" onclick="copyCode('reset-password')">Copy</button></pre>
         <div class="response">
           <p><strong>Success:</strong> <span class="success">200 OK</span></p>
-          <pre><code>{
+          <pre><code id="reset-password-success">
+{
   "status": true,
-  "message": "Password reset is successful"
-}</code></pre>
+  "message": "Password reset successfully!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('reset-password-success')">Copy</button></pre>
           <p>
             <strong>Failure:</strong>
-            <span class="failure">401 Unauthorized</span>
+            <span class="failure">400 Bad Request</span>
           </p>
-          <pre><code>{
-  "success": false,
-  "message": "Account not found"
-}</code></pre>
+          <pre><code id="reset-password-failure">
+{
+  "status": false,
+  "message": "Invalid or expired PIN"
+}
+</code>
+<button class="copy-button" onclick="copyCode('reset-password-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>The PIN provided might be invalid or expired.</li>
+            <li>The user might be using an old or incorrect PIN.</li>
+            <li><strong>Validation & Length:</strong></li>
+            <ul>
+              <li><code>pin</code>: Must be a valid number.</li>
+              <li>
+                <code>new_password</code>: Required, min length 6 characters
+                (STRING(100)).
+              </li>
+            </ul>
+          </ul>
         </div>
       </div>
 
       <div class="endpoint">
-        <h2>7. Change Password</h2>
-        <p><strong>Endpoint:</strong> /change-password</p>
+        <h2>7. Update Account</h2>
+        <p><strong>Endpoint:</strong> /update</p>
         <p><strong>Method:</strong> POST</p>
         <p>
-          <strong>Description:</strong> Changes the user's current password to a
-          new password.
+          <strong>Description:</strong> Updates user details such as phone
+          number, email, and name.
         </p>
         <h3>Request Body:</h3>
-        <pre><code>{
-  "id": "user_id",
-  "old_password": "string",
-  "new_password": "string"
-}</code></pre>
+        <pre><code id="update-account">
+{
+  "phone_number": "string",
+  "email_address": "string",
+  "password": "string",
+  "first_name": "string",
+  "last_name": "string",
+  "gender": "string",
+  "dob": "YYYY-MM-DD"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-account')">Copy</button></pre>
         <div class="response">
           <p><strong>Success:</strong> <span class="success">200 OK</span></p>
-          <pre><code>{
+          <pre><code id="update-account-success">
+{
   "status": true,
-  "message": "Password updated successfully! Please login with your new password"
-}</code></pre>
-          <p><strong>Failure:</strong> <span class="failure">401 Unauthorized</span></p>
-          <pre><code>{
+  "message": "Account updated successfully!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-account-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code id="update-account-failure">
+{
   "status": false,
-  "message": "Wrong old password!" 
-}</code></pre>
+  "message": "Error in updating the account!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-account-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>The request body might contain invalid or incomplete data.</li>
+            <li>
+              Some fields may be missing or not matching the expected format.
+            </li>
+            <li><strong>Validation & Length:</strong></li>
+            <ul>
+              <li>
+                <code>phone_number</code>: Required, max length 13 characters
+                (STRING(13)).
+              </li>
+              <li>
+                <code>email_address</code>: Required, max length 40 characters
+                (STRING(40)).
+              </li>
+              <li>
+                <code>password</code>: Required, min length 6 characters
+                (STRING(100)).
+              </li>
+              <li>
+                <code>first_name</code>: Max length 20 characters (STRING(20) in
+                Sequelize).
+              </li>
+              <li>
+                <code>last_name</code>: Max length 20 characters (STRING(20) in
+                Sequelize).
+              </li>
+              <li>
+                <code>gender</code>: Allowed values are "M", "F", "O" (STRING(1)
+                ).
+              </li>
+              <li>
+                <code>dob</code>: Required, should be a valid ISO8601 date (DATE
+                ).
+              </li>
+            </ul>
+          </ul>
         </div>
       </div>
-
-      <p>
-        <strong>Note:</strong>Use the provided token for authenticated requests
-        as necessary.
-      </p>
     </div>
+
+    <script>
+      function copyCode(id, button) {
+        var code = document.getElementById(id);
+        var range = document.createRange();
+        range.selectNode(code);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+
+        var message = document.getElementById(id + "-message");
+        message.classList.add("visible");
+        setTimeout(() => {
+          message.classList.remove("visible");
+          message.classList.add("hidden");
+        }, 2000);
+      }
+    </script>
   </body>
 </html>
