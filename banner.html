@@ -3,9 +3,367 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Banners API Documentation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        color: #007bff;
+      }
+      h2 {
+        margin-top: 20px;
+        color: #007bff;
+      }
+      pre {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        overflow-x: auto;
+        position: relative;
+      }
+      pre code {
+        display: block;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .copy-button:active {
+        background-color: #fa0e36;
+      }
+      .endpoint {
+        background: #e9ecef;
+        border-left: 5px solid #007bff;
+        padding: 10px;
+        margin-top: 10px;
+      }
+      .response {
+        margin-top: 10px;
+      }
+      .success {
+        color: #28a745;
+      }
+      .failure {
+        color: #dc3545;
+      }
+      .back-to-index {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
+        padding: 10px;
+        width: 20%;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+    <script>
+      function copyCode(id) {
+        const codeElement = document.getElementById(id);
+        const range = document.createRange();
+        range.selectNode(codeElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+      }
+    </script>
   </head>
   <body>
-    <h2>Now work on account api > Whait for others...</h2>
+    <div class="container">
+      <a href="index.html" class="back-to-index">Back to Home Page</a>
+      <h1>Banners API Documentation</h1>
+
+      <p>
+        <strong>Base URL:</strong>
+        <code>http://34.121.64.128:5000/api/banners</code>
+      </p>
+
+      <div class="endpoint">
+        <h2>1. Create Banner</h2>
+        <p><strong>Endpoint:</strong> /</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Creates a new banner with specified
+          details.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="create-banner">
+{
+  "thumbnail": "string",
+  "heading_text": "string",
+  "type": "image"  // Values: image, video, text
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-banner')">Copy</button></pre>
+        <div class="response">
+          <p>
+            <strong>Success:</strong> <span class="success">201 Created</span>
+          </p>
+          <pre><code id="create-banner-success">
+{
+  "status": true,
+  "message": "Banner created successfully!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-banner-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code id="create-banner-failure">
+{
+  "status": false,
+  "message": "Invalid banner details!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-banner-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Required fields are missing or incorrect.</li>
+            <li>Invalid format for type or thumbnail.</li>
+            <li><strong>Validation & Length:</strong></li>
+            <ul>
+              <li>
+                <code>thumbnail</code>: Required, max length 20 characters.
+              </li>
+              <li>
+                <code>heading_text</code>: Required, max length 100 characters.
+              </li>
+              <li>
+                <code>type</code>: Required, must be one of "image", "video", or
+                "text".
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>2. Retrieve All Banners</h2>
+        <p><strong>Endpoint:</strong> /</p>
+        <p><strong>Method:</strong> GET</p>
+        <p><strong>Description:</strong> Retrieves a list of all banners.</p>
+        <h3>Response:</h3>
+        <pre><code id="get-all-banners">
+[
+  {
+    "id": 1,
+    "thumbnail": "string",
+    "heading_text": "string",
+    "type": "image",
+    "createdAt": "YYYY-MM-DDTHH:MM:SSZ",
+    "updatedAt": "YYYY-MM-DDTHH:MM:SSZ"
+  }
+]
+</code>
+<button class="copy-button" onclick="copyCode('get-all-banners')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="get-all-banners-success">
+{
+  "success": true,
+  "message": "Banners retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "thumbnail": "image1.jpg",
+      "heading_text": "Banner Title 1",
+      "type": "image",
+      "createdAt": "2024-09-14T00:00:00Z",
+      "updatedAt": "2024-09-14T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "thumbnail": "image2.jpg",
+      "heading_text": "Banner Title 2",
+      "type": "video",
+      "createdAt": "2024-09-14T00:00:00Z",
+      "updatedAt": "2024-09-14T00:00:00Z"
+    }
+  ]
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-all-banners-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">500 Internal Server Error</span>
+          </p>
+          <pre><code id="get-all-banners-failure">
+{
+  "status": false,
+  "message": "Failed to retrieve banners!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-all-banners-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Database connection issues.</li>
+            <li>Server error or misconfiguration.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>3. Retrieve Banner by ID</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> GET</p>
+        <p>
+          <strong>Description:</strong> Retrieves details of a specific banner
+          by ID.
+        </p>
+        <h3>Response:</h3>
+        <pre><code id="get-banner-by-id">
+{
+  "id": 1,
+  "thumbnail": "string",
+  "heading_text": "string",
+  "type": "image",
+  "createdAt": "YYYY-MM-DDTHH:MM:SSZ",
+  "updatedAt": "YYYY-MM-DDTHH:MM:SSZ"
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-banner-by-id')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="get-banner-by-id-success">
+{
+  "success": true,
+  "message": "Banner retrieved successfully",
+  "data": {
+    "id": 1,
+    "thumbnail": "image1.jpg",
+    "heading_text": "Banner Title 1",
+    "type": "image",
+    "createdAt": "2024-09-14T00:00:00Z",
+    "updatedAt": "2024-09-14T00:00:00Z"
+  }
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-banner-by-id-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="get-banner-by-id-failure">
+{
+  "status": false,
+  "message": "Banner not found!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-banner-by-id-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>ID does not exist in the database.</li>
+            <li>Database connection issues.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>4. Update Banner by ID</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> PUT</p>
+        <p>
+          <strong>Description:</strong> Updates details of a specific banner by
+          ID.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="update-banner">
+{
+  "thumbnail": "new-thumbnail.jpg",
+  "heading_text": "Updated Banner Title",
+  "type": "video"  // Values: image, video, text
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-banner')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="update-banner-success">
+{
+  "status": true,
+  "message": "Banner updated successfully!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-banner-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code id="update-banner-failure">
+{
+  "status": false,
+  "message": "Invalid update details!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-banner-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Required fields are missing or incorrect.</li>
+            <li>Invalid format for type or thumbnail.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>5. Delete Banner by ID</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> DELETE</p>
+        <p><strong>Description:</strong> Deletes a specific banner by ID.</p>
+        <div class="response">
+          <p>
+            <strong>Success:</strong>
+            <span class="success">204 No Content</span>
+          </p>
+          <pre><code id="delete-banner-success">
+{
+  "status": true,
+  "message": "Banner deleted successfully!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('delete-banner-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="delete-banner-failure">
+{
+  "status": false,
+  "message": "Banner not found!"
+}
+</code>
+<button class="copy-button" onclick="copyCode('delete-banner-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>ID does not exist in the database.</li>
+            <li>Database connection issues.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
