@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grade API Documentation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        color: #007bff;
+      }
+      h2 {
+        margin-top: 20px;
+        color: #007bff;
+      }
+      pre {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        overflow-x: auto;
+        position: relative;
+      }
+      pre code {
+        display: block;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .copy-button:active {
+        background-color: #fa0e36;
+      }
+      .endpoint {
+        background: #e9ecef;
+        border-left: 5px solid #007bff;
+        padding: 10px;
+        margin-top: 10px;
+      }
+      .response {
+        margin-top: 10px;
+      }
+      .success {
+        color: #28a745;
+      }
+      .failure {
+        color: #dc3545;
+      }
+      .back-to-index {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
+        padding: 10px;
+        width: 20%;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+    <script>
+      function copyCode(id) {
+        const codeElement = document.getElementById(id);
+        const range = document.createRange();
+        range.selectNode(codeElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-to-index">Back to Home Page</a>
+      <h1>Grade API Documentation</h1>
+
+      <p>
+        <strong>Base URL:</strong>
+        <code>http://34.121.64.128:5000/api/grades</code>
+      </p>
+
+      <div class="endpoint">
+        <h2>1. Create Grade</h2>
+        <p><strong>Endpoint:</strong> /</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Creates a new grade with specified
+          details.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="create-grade">
+{
+  "name": "string",
+  "order": 1
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-grade')">Copy</button></pre>
+        <div class="response">
+          <p>
+            <strong>Success:</strong> <span class="success">201 Created</span>
+          </p>
+          <pre><code id="create-grade-success">
+{
+  "success": true,
+  "message": "Grade was created successfully",
+  "grade": {
+    "id": 3409279,
+    "name": "Grade Name",
+    "order": 1
+  }
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-grade-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code id="create-grade-failure">
+{
+  "success": false,
+  "message": "Invalid grade details"
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-grade-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Required fields are missing or incorrect.</li>
+            <li>Invalid format for name or order.</li>
+            <li><strong>Validation & Length:</strong></li>
+            <ul>
+              <li><code>name</code>: Required, max length 255 characters.</li>
+              <li><code>order</code>: Required, must be an integer.</li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>2. Retrieve All Grades</h2>
+        <p><strong>Endpoint:</strong> /</p>
+        <p><strong>Method:</strong> GET</p>
+        <p><strong>Description:</strong> Retrieves a list of all grades.</p>
+        <h3>Response:</h3>
+        <pre><code id="get-all-grades">
+[
+  {
+    "id": 3409279,
+    "name": "Grade Name",
+    "order": 1
+  }
+]
+</code>
+<button class="copy-button" onclick="copyCode('get-all-grades')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="get-all-grades-success">
+{
+  "success": true,
+  "grades": [
+    {
+      "id": 3409279,
+      "name": "Grade Name 1",
+      "order": 1
+    },
+    {
+      "id": 3409280,
+      "name": "Grade Name 2",
+      "order": 2
+    }
+  ]
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-all-grades-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">500 Internal Server Error</span>
+          </p>
+          <pre><code id="get-all-grades-failure">
+{
+  "success": false,
+  "message": "Failed to retrieve grades"
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-all-grades-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Database connection issues.</li>
+            <li>Server error or misconfiguration.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>3. Retrieve Grade by ID</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> GET</p>
+        <p>
+          <strong>Description:</strong> Retrieves details of a specific grade by
+          ID.
+        </p>
+        <h3>Response:</h3>
+        <pre><code id="get-grade-by-id">
+{
+  "id": 3409279,
+  "name": "Grade Name",
+  "order": 1
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-grade-by-id')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="get-grade-by-id-success">
+{
+  "success": true,
+  "grade": {
+    "id": 3409279,
+    "name": "Grade Name",
+    "order": 1
+  }
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-grade-by-id-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="get-grade-by-id-failure">
+{
+  "success": false,
+  "message": "Grade not found"
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-grade-by-id-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Grade ID does not exist.</li>
+            <li>Database or server issues.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>4. Update Grade</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Updates an existing grade with the
+          specified details.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="update-grade">
+{
+  "name": "string",
+  "order": 1
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-grade')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="update-grade-success">
+{
+  "success": true,
+  "message": "Grade updated successfully",
+  "grade": {
+    "id": 3409279,
+    "name": "Updated Grade Name",
+    "order": 2
+  }
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-grade-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="update-grade-failure">
+{
+  "success": false,
+  "message": "Grade not found"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-grade-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Grade ID does not exist.</li>
+            <li>Invalid update data.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>5. Delete Grade</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> DELETE</p>
+        <p><strong>Description:</strong> Deletes a grade by ID.</p>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="delete-grade-success">
+{
+  "success": true,
+  "message": "Grade deleted successfully"
+}
+</code>
+<button class="copy-button" onclick="copyCode('delete-grade-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="delete-grade-failure">
+{
+  "success": false,
+  "message": "Grade to be deleted not found"
+}
+</code>
+<button class="copy-button" onclick="copyCode('delete-grade-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Grade ID does not exist.</li>
+            <li>Database or server issues.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
