@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lookup Category API Documentation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        color: #007bff;
+      }
+      h2 {
+        margin-top: 20px;
+        color: #007bff;
+      }
+      pre {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        overflow-x: auto;
+        position: relative;
+      }
+      pre code {
+        display: block;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .copy-button:active {
+        background-color: #fa0e36;
+      }
+      .endpoint {
+        background: #e9ecef;
+        border-left: 5px solid #007bff;
+        padding: 10px;
+        margin-top: 10px;
+      }
+      .response {
+        margin-top: 10px;
+      }
+      .success {
+        color: #28a745;
+      }
+      .failure {
+        color: #dc3545;
+      }
+      .back-to-index {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
+        padding: 10px;
+        width: 20%;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+    <script>
+      function copyCode(id) {
+        const codeElement = document.getElementById(id);
+        const range = document.createRange();
+        range.selectNode(codeElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-to-index">Back to Home Page</a>
+      <h1>Lookup Category API Documentation</h1>
+
+      <p>
+        <strong>Base URL:</strong>
+        <code>http://34.121.64.128:5000/api/lookup-categories</code>
+      </p>
+
+      <div class="endpoint">
+        <h2>1. Create Lookup Category</h2>
+        <p><strong>Endpoint:</strong> /</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Creates a new lookup category with
+          specified details.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="create-lookup-category">
+{
+  "key": "string",
+  "lookupName": "string",
+  "description": "string"
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-lookup-category')">Copy</button></pre>
+        <div class="response">
+          <p>
+            <strong>Success:</strong> <span class="success">201 Created</span>
+          </p>
+          <pre><code id="create-lookup-category-success">
+{
+  "success": true,
+  "message": "Lookup category created successfully",
+  "data": {
+    "id": 1,
+    "key": "example-key",
+    "lookupName": "Example Name",
+    "description": "Example Description"
+  }
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-lookup-category-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code id="create-lookup-category-failure">
+{
+  "success": false,
+  "message": "Lookup category already exists."
+}
+</code>
+<button class="copy-button" onclick="copyCode('create-lookup-category-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>
+              Lookup category with the same key and lookupName already exists.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>2. Retrieve All Lookup Categories</h2>
+        <p><strong>Endpoint:</strong> /</p>
+        <p><strong>Method:</strong> GET</p>
+        <p>
+          <strong>Description:</strong> Retrieves a list of all lookup
+          categories.
+        </p>
+        <h3>Response:</h3>
+        <pre><code id="get-all-lookup-categories">
+[
+  {
+    "id": 1,
+    "key": "example-key",
+    "lookupName": "Example Name",
+    "description": "Example Description"
+  }
+]
+</code>
+<button class="copy-button" onclick="copyCode('get-all-lookup-categories')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="get-all-lookup-categories-success">
+{
+  "success": true,
+  "message": "Lookup categories retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "key": "example-key",
+      "lookupName": "Example Name",
+      "description": "Example Description"
+    }
+  ]
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-all-lookup-categories-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="get-all-lookup-categories-failure">
+{
+  "success": false,
+  "message": "No lookup categories found"
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-all-lookup-categories-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>No lookup categories exist in the database.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>3. Retrieve Lookup Categories by Key</h2>
+        <p><strong>Endpoint:</strong> /:key</p>
+        <p><strong>Method:</strong> GET</p>
+        <p>
+          <strong>Description:</strong> Retrieves lookup categories matching the
+          specified key.
+        </p>
+        <h3>Response:</h3>
+        <pre><code id="get-lookup-categories-by-key">
+[
+  {
+    "id": 1,
+    "key": "example-key",
+    "lookupName": "Example Name",
+    "description": "Example Description"
+  }
+]
+</code>
+<button class="copy-button" onclick="copyCode('get-lookup-categories-by-key')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="get-lookup-categories-by-key-success">
+{
+  "success": true,
+  "message": "Lookup categories retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "key": "example-key",
+      "lookupName": "Example Name",
+      "description": "Example Description"
+    }
+  ]
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-lookup-categories-by-key-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="get-lookup-categories-by-key-failure">
+{
+  "success": false,
+  "message": "No lookup categories found with key example-key"
+}
+</code>
+<button class="copy-button" onclick="copyCode('get-lookup-categories-by-key-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>No lookup categories found for the specified key.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>4. Update Lookup Category by ID</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> PATCH</p>
+        <p>
+          <strong>Description:</strong> Updates details of a specific lookup
+          category by ID.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="update-lookup-category">
+{
+  "key": "string",
+  "lookupName": "string",
+  "description": "string"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-lookup-category')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="update-lookup-category-success">
+{
+  "success": true,
+  "message": "Lookup category updated successfully",
+  "data": {
+    "id": 1,
+    "key": "updated-key",
+    "lookupName": "Updated Name",
+    "description": "Updated Description"
+  }
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-lookup-category-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">400 Bad Request</span>
+          </p>
+          <pre><code id="update-lookup-category-failure">
+{
+  "success": false,
+  "message": "Invalid lookup category details"
+}
+</code>
+<button class="copy-button" onclick="copyCode('update-lookup-category-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Required fields are missing or incorrect.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>5. Delete Lookup Category by ID</h2>
+        <p><strong>Endpoint:</strong> /:id</p>
+        <p><strong>Method:</strong> DELETE</p>
+        <p>
+          <strong>Description:</strong> Deletes a specific lookup category by
+          ID.
+        </p>
+        <div class="response">
+          <p>
+            <strong>Success:</strong>
+            <span class="success">204 No Content</span>
+          </p>
+          <pre><code id="delete-lookup-category-success">
+{
+  "success": true,
+  "message": "Lookup category deleted successfully"
+}
+</code>
+<button class="copy-button" onclick="copyCode('delete-lookup-category-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong> <span class="failure">404 Not Found</span>
+          </p>
+          <pre><code id="delete-lookup-category-failure">
+{
+  "success": false,
+  "message": "Lookup category not found"
+}
+</code>
+<button class="copy-button" onclick="copyCode('delete-lookup-category-failure')">Copy</button></pre>
+          <p><strong>Possible Causes:</strong></p>
+          <ul>
+            <li>Lookup category ID does not exist.</li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-to-index">Back to Home Page</a>
+    </div>
+  </body>
+</html>
