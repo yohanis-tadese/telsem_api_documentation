@@ -91,7 +91,7 @@
 
       <p>
         <strong>Base URL:</strong>
-        <code>http://34.121.64.128:5000/api/system_users</code>
+        <code>http://34.121.64.128:5000/api/system-users</code>
       </p>
 
       <div class="endpoint">
@@ -107,9 +107,8 @@
 {
   "full_name": "John Doe",
   "email_address": "john.doe@example.com",
-  "phone_number": "1234567890",
-  "group_id": 1,
-  "last_logged_in": "2024-09-16T00:00:00.000Z"
+  "phone_number": "+1234567890",
+  "group_id": 2 // is only valid group id accepted
 }
 </code>
 <button class="copy-button" onclick="copyCode('create-system-user')">Copy</button></pre>
@@ -120,14 +119,14 @@
           <pre><code id="create-system-user-success">
 {
   "success": true,
-  "message": "SystemUser was created successfully",
+  "message": "System user created successfully",
   "data": {
     "id": 1,
     "full_name": "John Doe",
     "email_address": "john.doe@example.com",
-    "phone_number": "1234567890",
-    "group_id": 1,
-    "last_logged_in": "2024-09-16T00:00:00.000Z"
+    "phone_number": "+1234567890",
+    "group_id": 2,
+    "last_logged_in": null
   }
 }
 </code>
@@ -165,9 +164,17 @@
     "id": 1,
     "full_name": "John Doe",
     "email_address": "john.doe@example.com",
-    "phone_number": "1234567890",
+    "phone_number": "+1234567890",
     "group_id": 1,
-    "last_logged_in": "2024-09-16T00:00:00.000Z"
+    "last_logged_in": null
+  },
+  {
+    "id": 2,
+    "full_name": "Jane Smith",
+    "email_address": "jane.smith@example.com",
+    "phone_number": "+0987654321",
+    "group_id": 2,
+    "last_logged_in": "2024-09-15T12:34:56.789Z"
   }
 ]
 </code>
@@ -180,9 +187,17 @@
     "id": 1,
     "full_name": "John Doe",
     "email_address": "john.doe@example.com",
-    "phone_number": "1234567890",
+    "phone_number": "+1234567890",
     "group_id": 1,
-    "last_logged_in": "2024-09-16T00:00:00.000Z"
+    "last_logged_in": null
+  },
+  {
+    "id": 2,
+    "full_name": "Jane Smith",
+    "email_address": "jane.smith@example.com",
+    "phone_number": "+0987654321",
+    "group_id": 2,
+    "last_logged_in": "2024-09-15T12:34:56.789Z"
   }
 ]
 </code>
@@ -194,14 +209,10 @@
           <pre><code id="get-all-system-users-failure">
 {
   "success": false,
-  "message": "Unable to retrieve system users."
+  "message": "Error retrieving system users"
 }
 </code>
 <button class="copy-button" onclick="copyCode('get-all-system-users-failure')">Copy</button></pre>
-          <p><strong>Possible Causes:</strong></p>
-          <ul>
-            <li>Server error or issue with database connection.</li>
-          </ul>
         </div>
       </div>
 
@@ -216,9 +227,9 @@
   "id": 1,
   "full_name": "John Doe",
   "email_address": "john.doe@example.com",
-  "phone_number": "1234567890",
+  "phone_number": "+1234567890",
   "group_id": 1,
-  "last_logged_in": "2024-09-16T00:00:00.000Z"
+  "last_logged_in": null
 }
 </code>
 <button class="copy-button" onclick="copyCode('get-system-user-by-id')">Copy</button></pre>
@@ -229,9 +240,9 @@
   "id": 1,
   "full_name": "John Doe",
   "email_address": "john.doe@example.com",
-  "phone_number": "1234567890",
+  "phone_number": "+1234567890",
   "group_id": 1,
-  "last_logged_in": "2024-09-16T00:00:00.000Z"
+  "last_logged_in": null
 }
 </code>
 <button class="copy-button" onclick="copyCode('get-system-user-by-id-success')">Copy</button></pre>
@@ -241,30 +252,27 @@
           <pre><code id="get-system-user-by-id-failure">
 {
   "success": false,
-  "message": "System user not found!"
+  "message": "System user not found"
 }
 </code>
 <button class="copy-button" onclick="copyCode('get-system-user-by-id-failure')">Copy</button></pre>
-          <p><strong>Possible Causes:</strong></p>
-          <ul>
-            <li>The specified system user ID might not exist.</li>
-          </ul>
         </div>
       </div>
 
       <div class="endpoint">
         <h2>4. Update System User</h2>
         <p><strong>Endpoint:</strong> /:id</p>
-        <p><strong>Method:</strong> PUT</p>
-        <p><strong>Description:</strong> Updates details of a system user.</p>
+        <p><strong>Method:</strong> PATCH</p>
+        <p>
+          <strong>Description:</strong> Updates details of a system user by ID.
+        </p>
         <h3>Request Body:</h3>
         <pre><code id="update-system-user">
 {
   "full_name": "John Doe",
   "email_address": "john.doe@example.com",
-  "phone_number": "1234567890",
-  "group_id": 1,
-  "last_logged_in": "2024-09-16T00:00:00.000Z"
+  "phone_number": "+1234567890",
+  "group_id": 1
 }
 </code>
 <button class="copy-button" onclick="copyCode('update-system-user')">Copy</button></pre>
@@ -273,14 +281,14 @@
           <pre><code id="update-system-user-success">
 {
   "success": true,
-  "message": "SystemUser was updated successfully",
+  "message": "System user updated successfully",
   "data": {
     "id": 1,
     "full_name": "John Doe",
     "email_address": "john.doe@example.com",
-    "phone_number": "1234567890",
+    "phone_number": "+1234567890",
     "group_id": 1,
-    "last_logged_in": "2024-09-16T00:00:00.000Z"
+    "last_logged_in": null
   }
 }
 </code>
@@ -292,14 +300,10 @@
           <pre><code id="update-system-user-failure">
 {
   "success": false,
-  "message": "Invalid request data"
+  "message": "Invalid system user ID"
 }
 </code>
 <button class="copy-button" onclick="copyCode('update-system-user-failure')">Copy</button></pre>
-          <p><strong>Possible Causes:</strong></p>
-          <ul>
-            <li>The request body might contain invalid data.</li>
-          </ul>
         </div>
       </div>
 
@@ -307,31 +311,89 @@
         <h2>5. Delete System User</h2>
         <p><strong>Endpoint:</strong> /:id</p>
         <p><strong>Method:</strong> DELETE</p>
-        <p><strong>Description:</strong> Deletes a system user by its ID.</p>
+        <p><strong>Description:</strong> Deletes a system user by ID.</p>
         <div class="response">
           <p>
             <strong>Success:</strong>
             <span class="success">204 No Content</span>
           </p>
+          <pre><code id="delete-system-user-success">
+{
+  "success": true,
+  "message": "System user deleted successfully"
+}
+</code>
+<button class="copy-button" onclick="copyCode('delete-system-user-success')">Copy</button></pre>
           <p>
             <strong>Failure:</strong> <span class="failure">404 Not Found</span>
           </p>
           <pre><code id="delete-system-user-failure">
 {
   "success": false,
-  "message": "System user not found!"
+  "message": "System user not found"
 }
 </code>
 <button class="copy-button" onclick="copyCode('delete-system-user-failure')">Copy</button></pre>
-          <p><strong>Possible Causes:</strong></p>
-          <ul>
-            <li>The specified system user ID might not exist.</li>
-          </ul>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <h2>6. Login</h2>
+        <p><strong>Endpoint:</strong> /login</p>
+        <p><strong>Method:</strong> POST</p>
+        <p>
+          <strong>Description:</strong> Authenticates a system user and returns
+          a token.
+        </p>
+        <h3>Request Body:</h3>
+        <pre><code id="login-request">
+{
+  "email_address": "john.doe@example.com",
+  "password": "myStrongP@ssword"
+}
+</code>
+<button class="copy-button" onclick="copyCode('login-request')">Copy</button></pre>
+        <div class="response">
+          <p><strong>Success:</strong> <span class="success">200 OK</span></p>
+          <pre><code id="login-success">
+{
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "userId": 1,
+    "email": "john.doe@example.com",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "groupId": 1,
+    "roles": [
+      {
+        "canView": true,
+        "canViewDetail": true,
+        "canAdd": false,
+        "canUpdate": true,
+        "canDelete": false,
+        "page": "Dashboard",
+        "title": "Manager"
+      }
+    ],
+    "last_logged_in": "2024-09-18T09:34:56.123Z"
+  }
+}
+</code>
+<button class="copy-button" onclick="copyCode('login-success')">Copy</button></pre>
+          <p>
+            <strong>Failure:</strong>
+            <span class="failure">401 Unauthorized</span>
+          </p>
+          <pre><code id="login-failure">
+{
+  "success": false,
+  "message": "Invalid email or password"
+}
+</code>
+<button class="copy-button" onclick="copyCode('login-failure')">Copy</button></pre>
         </div>
       </div>
     </div>
-
-    <a href="index.html" class="back-to-index">Back to Home Page</a>
     <script>
       function copyCode(id) {
         var code = document.getElementById(id);
@@ -339,13 +401,9 @@
         range.selectNode(code);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        try {
-          document.execCommand("copy");
-          alert("Code copied to clipboard!");
-        } catch (err) {
-          alert("Failed to copy code.");
-        }
+        document.execCommand("copy");
         window.getSelection().removeAllRanges();
+        alert("Copied to clipboard!");
       }
     </script>
   </body>
