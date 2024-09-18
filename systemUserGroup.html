@@ -343,75 +343,90 @@
           </p>
           <h3>URL Parameters:</h3>
           <pre><code id="update-system-user-group-params">
-{
-  "id": "number"
-}
-</code>
-<button class="copy-button" onclick="copyCode('update-system-user-group-params')">Copy</button></pre>
+        {
+          "id": "number"
+        }
+        </code>
+        <button class="copy-button" onclick="copyCode('update-system-user-group-params')">Copy</button></pre>
+
           <h3>Request Body:</h3>
           <pre><code id="update-system-user-group-body">
-{
-  "name": "string",
-  "description": "string"
-}
-</code>
-<button class="copy-button" onclick="copyCode('update-system-user-group-body')">Copy</button></pre>
+        {
+          "name": "string",
+          "description": "string",
+          "roles": [
+            {
+              "canView": true,
+              "canViewDetail": true,
+              "canAdd": true,
+              "canUpdate": true,
+              "canDelete": false,
+              "page": "string",
+              "title": "string"
+            }
+          ]
+        }
+        </code>
+        <button class="copy-button" onclick="copyCode('update-system-user-group-body')">Copy</button></pre>
+
           <h3>Response:</h3>
           <pre><code id="update-system-user-group">
-{
-  "id": 1,
-  "name": "Admin",
-  "description": "Updated Description",
-  "roles": [
-    {
-      "canView": true,
-      "canViewDetail": true,
-      "canAdd": true,
-      "canUpdate": true,
-      "canDelete": false,
-      "page": "Dashboard",
-      "title": "Dashboard"
-    }
-  ]
-}
-</code>
-<button class="copy-button" onclick="copyCode('update-system-user-group')">Copy</button></pre>
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "Updated Description",
+          "roles": [
+            {
+              "canView": true,
+              "canViewDetail": true,
+              "canAdd": true,
+              "canUpdate": true,
+              "canDelete": false,
+              "page": "Dashboard",
+              "title": "Dashboard"
+            }
+          ]
+        }
+        </code>
+        <button class="copy-button" onclick="copyCode('update-system-user-group')">Copy</button></pre>
+
           <div class="response">
             <p><strong>Success:</strong> <span class="success">200 OK</span></p>
             <pre><code id="update-system-user-group-success">
-{
-  "success": true,
-  "message": "System user group updated successfully",
-  "data": {
-    "id": 1,
-    "name": "Admin",
-    "description": "Updated Description",
-    "roles": [
-      {
-        "canView": true,
-        "canViewDetail": true,
-        "canAdd": true,
-        "canUpdate": true,
-        "canDelete": false,
-        "page": "Dashboard",
-        "title": "Dashboard"
-      }
-    ]
-  }
-}
-</code>
-<button class="copy-button" onclick="copyCode('update-system-user-group-success')">Copy</button></pre>
+        {
+          "success": true,
+          "message": "System user group updated successfully",
+          "data": {
+            "id": 1,
+            "name": "Admin",
+            "description": "Updated Description",
+            "roles": [
+              {
+                "canView": true,
+                "canViewDetail": true,
+                "canAdd": true,
+                "canUpdate": true,
+                "canDelete": false,
+                "page": "Dashboard",
+                "title": "Dashboard"
+              }
+            ]
+          }
+        }
+        </code>
+        <button class="copy-button" onclick="copyCode('update-system-user-group-success')">Copy</button></pre>
+
             <p>
               <strong>Failure:</strong>
               <span class="failure">404 Not Found</span>
             </p>
             <pre><code id="update-system-user-group-failure">
-{
-  "success": false,
-  "message": "System user group not found with id {id}"
-}
-</code>
-<button class="copy-button" onclick="copyCode('update-system-user-group-failure')">Copy</button></pre>
+        {
+          "success": false,
+          "message": "System user group not found with id {id}"
+        }
+        </code>
+        <button class="copy-button" onclick="copyCode('update-system-user-group-failure')">Copy</button></pre>
             <p><strong>Possible Causes:</strong></p>
             <ul>
               <li>ID does not exist in the database.</li>
