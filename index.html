@@ -150,7 +150,7 @@
         background-color: #333;
         color: white;
         text-align: center;
-        padding: 0.3rem;
+        padding: 0.7rem;
         margin-top: auto;
       }
 
@@ -216,17 +216,6 @@
           valid dependencies (like <code>group_id</code> for system users or
           <code>lookupCategory_id</code> for lookups) from their respective APIs
           before creating or updating records.
-        </li>
-        <li>
-          <strong>Handle success and failure responses:</strong> Always check
-          for success (status codes 200-201) and failure (e.g., 400, 404)
-          responses. Handle these responses appropriately in the frontend with
-          user-friendly error or success messages.
-        </li>
-        <li>
-          <strong>Token-based authentication:</strong> For endpoints that
-          require authentication, include the valid JWT token in the
-          Authorization header: <code>Authorization: Bearer [token]</code>.
         </li>
         <li>
           <strong>Data formatting:</strong> Ensure all request data is correctly
